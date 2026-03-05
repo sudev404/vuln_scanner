@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vulnerability Report - testphp.vulnweb.com</title>
+<style>
+  :root {
+    --primary: #1a1a2e; --accent: #0d6efd; --danger: #cc0000;
+    --warning: #e85d04; --success: #2d6a4f; --light: #f8f9fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #212529; }
+  header { background: var(--primary); color: #fff; padding: 2rem; }
+  header h1 { font-size: 1.8rem; margin-bottom: 0.4rem; }
+  header p { color: #adb5bd; font-size: 0.9rem; }
+  .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .card { background: #fff; border-radius: 10px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .card h3 { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card .val { font-size: 2rem; font-weight: 700; margin-top: 0.3rem; }
+  .section { background: #fff; border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 1.2rem; color: var(--primary); border-bottom: 2px solid #e9ecef; padding-bottom: 0.6rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--primary); color: #fff; padding: 0.6rem 0.8rem; text-align: left; }
+  td { padding: 0.55rem 0.8rem; border-bottom: 1px solid #e9ecef; }
+  tr:nth-child(even) td { background: var(--light); }
+  code { background: #f1f3f5; padding: 2px 6px; border-radius: 4px; font-size: 0.82rem; }
+  footer { text-align: center; color: #adb5bd; font-size: 0.8rem; padding: 2rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔍 Vulnerability Assessment Report</h1>
+  <p>Target: <strong>testphp.vulnweb.com</strong> &nbsp;|&nbsp; Scan Date: 2026-03-06 01:29:21</p>
+</header>
+<div class="container">
+  <div class="summary-grid">
+    <div class="card"><h3>Open Ports</h3><div class="val" style="color:var(--accent)">1</div></div>
+    <div class="card"><h3>CVE Services</h3><div class="val" style="color:#6610f2">1</div></div>
+    <div class="card"><h3>SQLi Findings</h3><div class="val" style="color:var(--warning)">14</div></div>
+    <div class="card"><h3>XSS Findings</h3><div class="val" style="color:var(--warning)">22</div></div>
+    <div class="card"><h3>Critical</h3><div class="val" style="color:var(--danger)">1</div></div>
+    <div class="card"><h3>High</h3><div class="val" style="color:var(--warning)">32</div></div>
+  </div>
+
+  <div class="section">
+    <h2>1. Port Scan Results</h2>
+    <table><tr><th>Port</th><th>Service</th><th>State</th><th>Risk</th></tr>
+    <tr><td>80</td><td>HTTP</td><td><span style='color:green'>OPEN</span></td><td><span style="color:#2d6a4f">✓ OK</span></td></tr></table>
+  </div>
+
+  <div class="section">
+    <h2>2. CVE Vulnerability Lookup</h2>
+    <h3 style='color:#16213e'>HTTP (Port 80)</h3><table><tr><th>CVE ID</th><th>Severity</th><th>Score</th><th>Description</th></tr><tr><td><code>CVE-1999-0236</code></td><td><span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span></td><td>7.5</td><td>ScriptAlias directory in NCSA and Apache httpd allowed attackers to read CGI programs....</td></tr><tr><td><code>CVE-1999-0071</code></td><td><span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span></td><td>7.5</td><td>Apache httpd cookie buffer overflow for versions 1.1.1 and earlier....</td></tr><tr><td><code>CVE-1999-1199</code></td><td><span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span></td><td>10.0</td><td>Apache WWW server 1.3.1 and earlier allows remote attackers to cause a denial of service (resource exhaustion) via a large number of MIME headers with the same name, aka the "sioux" vulnerability....</td></tr><tr><td><code>CVE-1999-0107</code></td><td><span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span></td><td>5.0</td><td>Buffer overflow in Apache 1.2.5 and earlier allows a remote attacker to cause a denial of service with a large number of GET requests containing a large number of / characters....</td></tr><tr><td><code>CVE-1999-0448</code></td><td><span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span></td><td>5.0</td><td>IIS 4.0 and Apache log HTTP request methods, regardless of how long they are, allowing a remote attacker to hide the URL they really request....</td></tr></table>
+  </div>
+
+  <div class="section">
+    <h2>3. SQL Injection Testing</h2>
+    
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>'</code></small>
+                
+                <br><small>Syntax Error Probe</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>' OR '1'='1</code></small>
+                
+                <br><small>Classic Boolean Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>' OR '1'='1' --</code></small>
+                
+                <br><small>Comment-based Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>' OR 1=1 --</code></small>
+                
+                <br><small>Numeric Boolean Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>'; DROP TABLE users; --</code></small>
+                
+                <br><small>Destructive Payload (detected only)</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>' UNION SELECT NULL --</code></small>
+                
+                <br><small>UNION-based Probe</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>' AND SLEEP(2) --</code></small>
+                
+                <br><small>Time-based Blind SQLi</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>1' AND '1'='1</code></small>
+                
+                <br><small>In-band Probe</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>admin'--</code></small>
+                
+                <br><small>Admin Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>URL Parameter</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>' OR 'x'='x</code></small>
+                
+                <br><small>Alternate Boolean Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form Input</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>' OR '1'='1' --</code></small>
+                
+                <br><small>Comment-based Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form Input</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>'; DROP TABLE users; --</code></small>
+                
+                <br><small>Destructive Payload (detected only)</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form Input</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>' UNION SELECT NULL --</code></small>
+                
+                <br><small>UNION-based Probe</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form Input</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>admin'--</code></small>
+                
+                <br><small>Admin Bypass</small>
+            </div>
+  </div>
+
+  <div class="section">
+    <h2>4. Cross-Site Scripting (XSS)</h2>
+    
+            <div style='border-left:4px solid #f48c06;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span> <strong>Finding</strong>
+                
+                
+                
+                
+            </div>
+            <div style='border-left:4px solid #f48c06;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span> <strong>Finding</strong>
+                
+                
+                
+                
+            </div>
+            <div style='border-left:4px solid #f48c06;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span> <strong>Finding</strong>
+                
+                
+                
+                
+            </div>
+            <div style='border-left:4px solid #f48c06;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span> <strong>Finding</strong>
+                
+                
+                
+                
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code><script>alert('XSS')</script></code></small>
+                
+                <br><small>Basic Script Tag</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code><img src=x onerror=alert'XSS'></code></small>
+                
+                <br><small>Image onerror Event</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code><svg onload=alert'XSS'></code></small>
+                
+                <br><small>SVG onload Event</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>'><script>alert(1)</script></code></small>
+                
+                <br><small>Attribute Breakout</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code><body onload=alert'XSS'></code></small>
+                
+                <br><small>Body Event Handler</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code><iframe src='javascript:alert(1)'></iframe></code></small>
+                
+                <br><small>IFrame JavaScript</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code>"><img src=x onerror=alert(1)></code></small>
+                
+                <br><small>Double-quote Attribute Breakout</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Reflected XSS</strong>
+                <br><small>Parameter: <code>cat</code></small>
+                <br><small>Payload: <code><ScRiPt>alert(1)</ScRiPt></code></small>
+                
+                <br><small>Mixed Case Bypass</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code><script>alert('XSS')</script></code></small>
+                
+                <br><small>Basic Script Tag</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code><img src=x onerror=alert'XSS'></code></small>
+                
+                <br><small>Image onerror Event</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code><svg onload=alert'XSS'></code></small>
+                
+                <br><small>SVG onload Event</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>'><script>alert(1)</script></code></small>
+                
+                <br><small>Attribute Breakout</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code><body onload=alert'XSS'></code></small>
+                
+                <br><small>Body Event Handler</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>javascript:alert('XSS')</code></small>
+                
+                <br><small>JavaScript URI</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code><iframe src='javascript:alert(1)'></iframe></code></small>
+                
+                <br><small>IFrame JavaScript</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>"><img src=x onerror=alert(1)></code></small>
+                
+                <br><small>Double-quote Attribute Breakout</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code>{{7*7}}</code></small>
+                
+                <br><small>Template Injection Probe</small>
+            </div>
+            <div style='border-left:4px solid #e85d04;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#e85d04;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">HIGH</span> <strong>Form-based XSS</strong>
+                <br><small>Parameter: <code>['searchFor', 'goButton']</code></small>
+                <br><small>Payload: <code><ScRiPt>alert(1)</ScRiPt></code></small>
+                
+                <br><small>Mixed Case Bypass</small>
+            </div>
+  </div>
+
+  <div class="section">
+    <h2>5. SSL/TLS Configuration</h2>
+    
+    <div style="margin-top:1rem">
+            <div style='border-left:4px solid #cc0000;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#cc0000;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">CRITICAL</span> <strong>Invalid/Untrusted Certificate</strong>
+                
+                
+                <br><small>timed out</small>
+                
+            </div>
+            <div style='border-left:4px solid #f48c06;padding:10px;margin:8px 0;background:#fafafa;border-radius:0 6px 6px 0'>
+                <span style="background:#f48c06;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700">MEDIUM</span> <strong>Missing HSTS Header</strong>
+                
+                
+                <br><small>Strict-Transport-Security not set; susceptible to downgrade attacks</small>
+                
+            </div></div>
+  </div>
+</div>
+<footer>Report generated on 2026-03-06 01:29:21. This assessment is for authorized use only.</footer>
+</body>
+</html>
