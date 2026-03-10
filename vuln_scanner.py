@@ -123,7 +123,7 @@ def main():
     try:
     from modules.report_generator import generate_pdf_report, generate_html_report
     PDF_SUPPORT = True
-    except ImportError:
+   except ImportError:
     PDF_SUPPORT = False
     print("[!] reportlab not installed — PDF report disabled, HTML only.")
     
