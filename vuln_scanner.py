@@ -96,41 +96,40 @@ def main():
         "ssl": {},
     }
 
-    # ── Phase 1: Port Scan ────────────────────────────────────────────────────
+    # Phase 1: Port Scan
     if not args.skip_ports:
         scan_data["ports"] = run_port_scan(target, port_range, threads=args.threads)
 
-    # ── Phase 2: CVE Lookup ───────────────────────────────────────────────────
+    # Phase 2: CVE Lookup
     if not args.skip_cve and scan_data["ports"]:
         scan_data["cves"] = run_cve_lookup(scan_data["ports"])
     elif not args.skip_cve:
         print("\n[!] Skipping CVE lookup — no open ports discovered.")
 
-    # ── Phase 3: SQL Injection ────────────────────────────────────────────────
+    # Phase 3: SQL Injection
     if not args.skip_sqli:
         scan_data["sqli"] = run_sqli_test(url)
 
-    # ── Phase 4: XSS ─────────────────────────────────────────────────────────
+    # Phase 4: XSS
     if not args.skip_xss:
         scan_data["xss"] = run_xss_test(url)
 
-    # ── Phase 5: SSL/TLS ──────────────────────────────────────────────────────
+    # Phase 5: SSL/TLS
     if not args.skip_ssl:
         scan_data["ssl"] = run_ssl_check(target)
 
-    # ── Report Generation ─────────────────────────────────────────────────────
+    # Report Generation
     print(f"\n{'='*60}")
     print("[*] Generating reports...")
 
     pdf_path = f"{args.output}.pdf"
     html_path = f"{args.output}.html"
 
-if PDF_SUPPORT:
-    generate_pdf_report(scan_data, pdf_path)
-else:
-    print("[!] Skipping PDF — reportlab not available.")
-generate_html_report(scan_data, html_path)
-    
+    if PDF_SUPPORT:
+        generate_pdf_report(scan_data, pdf_path)
+    else:
+        print("[!] Skipping PDF — reportlab not available.")
+    generate_html_report(scan_data, html_path)
 
     print(f"\n{'='*60}")
     print(f"[✓] Scan complete!")
