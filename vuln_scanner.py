@@ -125,7 +125,7 @@ def main():
     pdf_path = f"{args.output}.pdf"
     html_path = f"{args.output}.html"
 
-    if PDF_SUPPORT:
+if PDF_SUPPORT:
     generate_pdf_report(scan_data, pdf_path)
 else:
     print("[!] Skipping PDF — reportlab not available.")
