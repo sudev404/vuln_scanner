@@ -16,7 +16,12 @@ from modules.cve_lookup import run_cve_lookup
 from modules.sqli_tester import run_sqli_test
 from modules.xss_tester import run_xss_test
 from modules.ssl_checker import run_ssl_check
-from modules.report_generator import generate_pdf_report, generate_html_report
+try:
+    from modules.report_generator import generate_pdf_report, generate_html_report
+    PDF_SUPPORT = True
+except ImportError:
+    PDF_SUPPORT = False
+    print("[!] reportlab not installed — PDF report disabled, HTML only.")
 
 BANNER = """
 \033[92m
@@ -120,12 +125,11 @@ def main():
     pdf_path = f"{args.output}.pdf"
     html_path = f"{args.output}.html"
 
-    try:
-    from modules.report_generator import generate_pdf_report, generate_html_report
-    PDF_SUPPORT = True
-   except ImportError:
-    PDF_SUPPORT = False
-    print("[!] reportlab not installed — PDF report disabled, HTML only.")
+    if PDF_SUPPORT:
+    generate_pdf_report(scan_data, pdf_path)
+else:
+    print("[!] Skipping PDF — reportlab not available.")
+generate_html_report(scan_data, html_path)
     
 
     print(f"\n{'='*60}")
