@@ -120,8 +120,13 @@ def main():
     pdf_path = f"{args.output}.pdf"
     html_path = f"{args.output}.html"
 
-    generate_pdf_report(scan_data, pdf_path)
-    generate_html_report(scan_data, html_path)
+    try:
+    from modules.report_generator import generate_pdf_report, generate_html_report
+    PDF_SUPPORT = True
+    except ImportError:
+    PDF_SUPPORT = False
+    print("[!] reportlab not installed — PDF report disabled, HTML only.")
+    
 
     print(f"\n{'='*60}")
     print(f"[✓] Scan complete!")
