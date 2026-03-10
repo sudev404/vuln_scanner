@@ -16,8 +16,9 @@ from modules.cve_lookup import run_cve_lookup
 from modules.sqli_tester import run_sqli_test
 from modules.xss_tester import run_xss_test
 from modules.ssl_checker import run_ssl_check
+from modules.report_generator import generate_html_report
 try:
-    from modules.report_generator import generate_pdf_report, generate_html_report
+    from modules.report_generator import generate_pdf_report
     PDF_SUPPORT = True
 except ImportError:
     PDF_SUPPORT = False
@@ -133,7 +134,8 @@ def main():
 
     print(f"\n{'='*60}")
     print(f"[✓] Scan complete!")
-    print(f"[✓] PDF Report  : {pdf_path}")
+    if PDF_SUPPORT:
+        print(f"[✓] PDF Report  : {pdf_path}")
     print(f"[✓] HTML Report : {html_path}")
     print(f"{'='*60}\n")
 
